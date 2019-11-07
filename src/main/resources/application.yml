@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    include:
+      - datasource
+      - actuator
+
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
