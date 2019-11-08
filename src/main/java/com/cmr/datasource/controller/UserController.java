@@ -1,7 +1,7 @@
 package com.cmr.datasource.controller;
 
-import com.cmr.datasource.dao.jpa.UserRepository;
-import com.cmr.datasource.entity.jpa.UserEntity;
+import com.cmr.datasource.dao.UserMapper;
+import com.cmr.datasource.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
-import java.util.Optional;
 
 /**
  * @author chenmengrui
@@ -21,12 +20,12 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserMapper userMapper;
 
     @GetMapping("getUser")
-    public UserEntity user(@RequestParam("userId") @NotNull Long userId) {
-        Optional<UserEntity> optionalUserEntity = userRepository.findById(userId);
-        return optionalUserEntity.orElse(null);
+    public User user(@RequestParam("userId") @NotNull Long userId) {
+        User user = userMapper.selectByPrimaryKey(1L);
+        return user;
     }
 
 }

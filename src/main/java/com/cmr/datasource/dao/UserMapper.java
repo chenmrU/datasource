@@ -1,7 +1,7 @@
-package com.cmr.datasource.dao.mapper;
+package com.cmr.datasource.dao;
 
-import com.cmr.datasource.entity.mybatis.User;
-import com.cmr.datasource.entity.mybatis.UserExample;
+import com.cmr.datasource.entity.User;
+import com.cmr.datasource.entity.UserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

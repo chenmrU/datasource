@@ -1,4 +1,4 @@
-package com.cmr.datasource.entity.mybatis;
+package com.cmr.datasource.entity;
 
 import java.util.ArrayList;
 import java.util.List;
