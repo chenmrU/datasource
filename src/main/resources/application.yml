@@ -3,6 +3,9 @@ spring:
     include:
       - datasource
       - actuator
+  main:
+    allow-bean-definition-overriding: true
+
 
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml

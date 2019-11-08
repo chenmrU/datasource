@@ -1,11 +1,12 @@
-package com.cmr.datasource.dao;
+package com.cmr.datasource.dao.mapper;
 
-import com.cmr.datasource.entity.User;
-import com.cmr.datasource.entity.UserExample;
+import com.cmr.datasource.entity.mybatis.User;
+import com.cmr.datasource.entity.mybatis.UserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
+
     long countByExample(UserExample example);
 
     int deleteByExample(UserExample example);
