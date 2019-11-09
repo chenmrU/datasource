@@ -7,7 +7,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-@MapperScan("com.cmr.datasource.dao.mapper")
+@MapperScan("com.cmr.datasource.dao")
 public class DatasourceApplication {
 
 	public static void main(String[] args) {

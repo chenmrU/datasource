@@ -2,6 +2,7 @@ package com.cmr.datasource.controller;
 
 import com.cmr.datasource.dao.UserMapper;
 import com.cmr.datasource.entity.User;
+import com.cmr.datasource.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +21,11 @@ import javax.validation.constraints.NotNull;
 public class UserController {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @GetMapping("getUser")
     public User user(@RequestParam("userId") @NotNull Long userId) {
-        User user = userMapper.selectByPrimaryKey(1L);
+        User user = userService.getUserById(userId);
         return user;
     }
 
