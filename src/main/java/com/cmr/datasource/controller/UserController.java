@@ -1,15 +1,19 @@
 package com.cmr.datasource.controller;
 
-import com.cmr.datasource.dao.UserMapper;
+import com.cmr.datasource.constants.ResponseCode;
+import com.cmr.datasource.entity.req.LoginReq;
+import com.cmr.datasource.entity.resp.Response;
 import com.cmr.datasource.entity.User;
+import com.cmr.datasource.exception.UnauthorizedException;
 import com.cmr.datasource.service.UserService;
+import com.cmr.datasource.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * @author chenmengrui
@@ -27,6 +31,15 @@ public class UserController {
     public User user(@RequestParam("userId") @NotNull Long userId) {
         User user = userService.getUserById(userId);
         return user;
+    }
+
+    @PostMapping("/login")
+    public Response login(@RequestBody LoginReq req) {
+        User user = userService.getUserByUsername(req.getUsername());
+        if (!ObjectUtils.isEmpty(user) && user.getUserPassword().equals(req.getPassword())) {
+            return new Response<String>(ResponseCode.LOGIN_SUCCESS, JWTUtil.sign(req.getUsername(), req.getPassword()));
+        }
+        throw new UnauthorizedException();
     }
 
 }

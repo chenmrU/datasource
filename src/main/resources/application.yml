@@ -3,6 +3,7 @@ spring:
     include:
       - datasource
       - actuator
+      - shiro
   main:
     allow-bean-definition-overriding: true
 

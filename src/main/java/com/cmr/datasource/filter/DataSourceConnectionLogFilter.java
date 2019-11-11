@@ -22,17 +22,17 @@ public class DataSourceConnectionLogFilter extends FilterEventAdapter {
 
     @Override
     public void connection_connectBefore(FilterChain chain, Properties info) {
-        log.info("DataSourceConnectionLogFilter#connection_connectBefore");
+        //log.info("DataSourceConnectionLogFilter#connection_connectBefore");
     }
 
     @Override
     public void connection_connectAfter(ConnectionProxy connection) {
-        log.info("DataSourceConnectionLogFilter#connection_connectAfter");
+        //log.info("DataSourceConnectionLogFilter#connection_connectAfter");
     }
 
     @Override
     public PreparedStatementProxy connection_prepareStatement(FilterChain chain, ConnectionProxy connection, String sql) throws SQLException {
-        log.info(sql);
+        //log.info(sql);
         return super.connection_prepareStatement(chain, connection, sql);
     }
 }
