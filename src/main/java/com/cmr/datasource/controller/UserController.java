@@ -8,12 +8,10 @@ import com.cmr.datasource.exception.UnauthorizedException;
 import com.cmr.datasource.service.UserService;
 import com.cmr.datasource.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 /**
  * @author chenmengrui

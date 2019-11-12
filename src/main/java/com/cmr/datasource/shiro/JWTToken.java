@@ -1,5 +1,6 @@
 package com.cmr.datasource.shiro;
 
+import lombok.AllArgsConstructor;
 import org.apache.shiro.authc.AuthenticationToken;
 
 /**
@@ -7,6 +8,7 @@ import org.apache.shiro.authc.AuthenticationToken;
  * @Description: TODO
  * @date 2019/11/11 19:08
  */
+@AllArgsConstructor
 public class JWTToken implements AuthenticationToken {
 
     private String token;
