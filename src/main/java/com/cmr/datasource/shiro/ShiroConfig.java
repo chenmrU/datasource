@@ -52,16 +52,9 @@ public class ShiroConfig {
 
         Map<String, String> filterRuleMap = new HashMap<>(2);
         //所有请求通过我的自己的JWT Filter
-        filterRuleMap.put("/**", "jwt");
         //访问401和404页面不通过我们的Filter
         filterRuleMap.put("/401", "anon");
-        filterRuleMap.put("/swagger-ui.html","anon");
-        filterRuleMap.put("/swagger-resources/**","anon");
-        filterRuleMap.put("/v2/api-docs/**","anon");
-        filterRuleMap.put("/webjars/springfox-swagger-ui/**","anon");
-        filterRuleMap.put("/user/login","anon");
-        filterRuleMap.put("/configuration/security", "anon");
-        filterRuleMap.put("/configuration/ui", "anon");
+        filterRuleMap.put("/**", "jwt");
         factoryBean.setFilterChainDefinitionMap(filterRuleMap);
         return factoryBean;
     }
@@ -69,7 +62,7 @@ public class ShiroConfig {
     /**
      * 添加注解支持
      * @return
-     */
+     *//*
     @Bean
     @DependsOn("lifecycleBeanPostProcessor")
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
@@ -77,12 +70,7 @@ public class ShiroConfig {
         //强制使用cglib
         defaultAdvisorAutoProxyCreator.setProxyTargetClass(true);
         return defaultAdvisorAutoProxyCreator;
-    }
-
-    @Bean
-    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
-        return new LifecycleBeanPostProcessor();
-    }
+    }*/
 
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(DefaultWebSecurityManager defaultWebSecurityManager) {

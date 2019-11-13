@@ -8,12 +8,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.spring.data.rest.configuration.SpringDataRestConfiguration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author chenmengrui
@@ -29,6 +35,9 @@ public class SwaggerConfig {
 
     @Bean
     public Docket petApi() {
+        List<Parameter> parameters = new ArrayList<>();
+        parameters.add(new ParameterBuilder().name("token").modelRef(new ModelRef("string")).description("token").parameterType("header").required(false).build());
+
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .pathMapping("/")
@@ -38,7 +47,8 @@ public class SwaggerConfig {
                 .paths(Predicates.not(PathSelectors.regex("/actuator.*")))
                 .paths(Predicates.not(PathSelectors.regex("/profile.*")))
                 .paths(PathSelectors.regex("/.*"))
-                .build();
+                .build()
+                .globalOperationParameters(parameters);
     }
 
     protected ApiInfo apiInfo() {

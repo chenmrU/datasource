@@ -33,8 +33,7 @@ public class UserController {
     @GetMapping("getUser")
     @RequiresPermissions("agent:save")
     public User user(@RequestParam("userId") @NotNull Long userId) {
-        User user = userService.getUserById(userId);
-        return user;
+        return userService.getUserById(userId);
     }
 
     @ApiOperation("登录")
