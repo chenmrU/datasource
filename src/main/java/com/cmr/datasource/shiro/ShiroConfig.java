@@ -59,6 +59,9 @@ public class ShiroConfig {
         filterRuleMap.put("/swagger-resources/**","anon");
         filterRuleMap.put("/v2/api-docs/**","anon");
         filterRuleMap.put("/webjars/springfox-swagger-ui/**","anon");
+        filterRuleMap.put("/user/login","anon");
+        filterRuleMap.put("/configuration/security", "anon");
+        filterRuleMap.put("/configuration/ui", "anon");
         factoryBean.setFilterChainDefinitionMap(filterRuleMap);
         return factoryBean;
     }

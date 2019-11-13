@@ -7,6 +7,9 @@ import com.cmr.datasource.entity.User;
 import com.cmr.datasource.exception.UnauthorizedException;
 import com.cmr.datasource.service.UserService;
 import com.cmr.datasource.shiro.JWTUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
@@ -18,19 +21,23 @@ import javax.validation.constraints.NotNull;
  * @Description: TODO
  * @date 2019/11/8 10:37
  */
+@Api(value = "agent", description = "用户管理")
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
+    @ApiOperation("根据用户id查询用户信息")
     @GetMapping("getUser")
+    @RequiresPermissions("agent:save")
     public User user(@RequestParam("userId") @NotNull Long userId) {
         User user = userService.getUserById(userId);
         return user;
     }
 
+    @ApiOperation("登录")
     @PostMapping("/login")
     public Response login(@RequestBody LoginReq req) {
         User user = userService.getUserByUsername(req.getUsername());
