@@ -17,8 +17,7 @@ import java.io.IOException;
  * @date 2019/11/12 14:51
  */
 @Slf4j
-public class JWTFilter extends BasicHttpAuthenticationFilter {
-
+public class JwtFilter extends BasicHttpAuthenticationFilter {
 
     @Override
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
@@ -31,7 +30,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String authorization = httpServletRequest.getHeader("Authorization");
-        JWTToken token = new JWTToken(authorization);
+        JwtToken token = new JwtToken(authorization);
         getSubject(request, response).login(token);
         return true;
     }

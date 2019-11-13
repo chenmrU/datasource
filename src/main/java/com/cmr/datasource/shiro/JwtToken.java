@@ -9,7 +9,7 @@ import org.apache.shiro.authc.AuthenticationToken;
  * @date 2019/11/11 19:08
  */
 @AllArgsConstructor
-public class JWTToken implements AuthenticationToken {
+public class JwtToken implements AuthenticationToken {
 
     private String token;
 

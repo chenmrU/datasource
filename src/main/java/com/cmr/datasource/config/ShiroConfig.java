@@ -1,8 +1,7 @@
 package com.cmr.datasource.config;
 
-import com.cmr.datasource.shiro.JWTFilter;
+import com.cmr.datasource.shiro.JwtFilter;
 import com.cmr.datasource.shiro.UserRealm;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -47,7 +46,7 @@ public class ShiroConfig {
 
         //添加自己的过滤其并且取名为jwt
         Map<String, Filter> filterMap = new HashMap<>(1);
-        filterMap.put("jwt", new JWTFilter());
+        filterMap.put("jwt", new JwtFilter());
         factoryBean.setFilters(filterMap);
 
         factoryBean.setSecurityManager(defaultWebSecurityManager);
@@ -58,6 +57,10 @@ public class ShiroConfig {
         filterRuleMap.put("/**", "jwt");
         //访问401和404页面不通过我们的Filter
         filterRuleMap.put("/401", "anon");
+        filterRuleMap.put("/swagger-ui.html","anon");
+        filterRuleMap.put("/swagger-resources/**","anon");
+        filterRuleMap.put("/v2/api-docs/**","anon");
+        filterRuleMap.put("/webjars/springfox-swagger-ui/**","anon");
         factoryBean.setFilterChainDefinitionMap(filterRuleMap);
         return factoryBean;
     }
