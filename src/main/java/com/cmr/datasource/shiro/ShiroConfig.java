@@ -1,7 +1,5 @@
-package com.cmr.datasource.config;
+package com.cmr.datasource.shiro;
 
-import com.cmr.datasource.shiro.JwtFilter;
-import com.cmr.datasource.shiro.UserRealm;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -19,7 +17,7 @@ import java.util.Map;
 
 /**
  * @author chenmengrui
- * @Description: TODO
+ * @Description: Shiro配置
  * @date 2019/11/12 16:00
  */
 @Configuration

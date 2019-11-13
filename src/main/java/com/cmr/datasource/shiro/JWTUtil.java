@@ -1,4 +1,4 @@
-package com.cmr.datasource.util;
+package com.cmr.datasource.shiro;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -11,7 +11,7 @@ import java.util.Date;
 
 /**
  * @author chenmengrui
- * @Description: TODO
+ * @Description: jwt工具类
  * @date 2019/11/11 11:35
  */
 public class JWTUtil {

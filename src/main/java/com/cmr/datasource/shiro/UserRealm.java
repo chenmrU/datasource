@@ -2,7 +2,6 @@ package com.cmr.datasource.shiro;
 
 import com.cmr.datasource.entity.User;
 import com.cmr.datasource.service.UserService;
-import com.cmr.datasource.util.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -37,7 +36,7 @@ public class UserRealm extends AuthorizingRealm {
     }
 
     /**
-     * 只有当需要检测用户权限才会调用
+     * 授权
      * @param principalCollection
      * @return
      */
@@ -53,7 +52,7 @@ public class UserRealm extends AuthorizingRealm {
     }
 
     /**
-     * 默认使用此方法进行用户正确与否验证
+     * 认证
      * @param authenticationToken
      * @return
      * @throws AuthenticationException

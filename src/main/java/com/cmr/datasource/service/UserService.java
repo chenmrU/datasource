@@ -3,6 +3,7 @@ package com.cmr.datasource.service;
 import com.cmr.datasource.dao.UserMapper;
 import com.cmr.datasource.entity.User;
 import com.cmr.datasource.entity.UserExample;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;

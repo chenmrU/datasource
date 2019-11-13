@@ -1,4 +1,4 @@
-package com.cmr.datasource.config;
+package com.cmr.datasource.swagger;
 
 import com.fasterxml.classmate.TypeResolver;
 import com.google.common.base.Predicates;
