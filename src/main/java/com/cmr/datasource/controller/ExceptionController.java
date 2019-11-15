@@ -27,11 +27,11 @@ public class ExceptionController {
      * @param e
      * @return
      */
-    /*@ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler({UnauthorizedException.class, TokenExpiredException.class, ShiroException.class})
     public Response handle401(Exception e) {
         return new Response<>(ResponseCode.UNAUTHORIZED, e.getMessage());
-    }*/
+    }
 
     /**
      * 捕获其他所有异常
