@@ -13,6 +13,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -42,11 +43,15 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        String username = JWTUtil.getUsername(principalCollection.toString());
-        User user = userService.getUserByUsername(username);
+        User user = (User) principalCollection;
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        simpleAuthorizationInfo.addRole(user.getUserRole());
-        Set<String> permission = new HashSet<>(Arrays.asList(user.getUserPermission().split(",")));
+        if (!StringUtils.isEmpty(user.getUserRole())) {
+            simpleAuthorizationInfo.addRole(user.getUserRole());
+        }
+        Set<String> permission = new HashSet<>();
+        if (!StringUtils.isEmpty(user.getUserPermission())) {
+             permission = new HashSet<>(Arrays.asList(user.getUserPermission().split(",")));
+        }
         simpleAuthorizationInfo.addStringPermissions(permission);
         return simpleAuthorizationInfo;
     }
@@ -71,6 +76,6 @@ public class UserRealm extends AuthorizingRealm {
         if (!JWTUtil.verify(token, username, user.getUserPassword())) {
             throw new AuthenticationException("Username or password error");
         }
-        return new SimpleAuthenticationInfo(token, token, "user_realm");
+        return new SimpleAuthenticationInfo(user, token, "user_realm");
     }
 }

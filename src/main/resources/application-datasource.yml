@@ -19,7 +19,7 @@ spring:
         log-slow-sql: true
         merge-sql: true
         connection-stack-trace-enable: false
-        slow-sql-millis: 3000
+        slow-sql-millis: 1000
       slf4j:
         enabled: true
         data-source-log-enabled: true

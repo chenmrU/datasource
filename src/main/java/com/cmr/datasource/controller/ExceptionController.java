@@ -1,8 +1,10 @@
 package com.cmr.datasource.controller;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.cmr.datasource.constants.ResponseCode;
 import com.cmr.datasource.entity.resp.Response;
 import com.cmr.datasource.exception.UnauthorizedException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.ShiroException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,22 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author chenmengrui
- * @Description: TODO
+ * @Description: 统一处理异常
  * @date 2019/11/11 18:51
  */
 @RestControllerAdvice
+@Slf4j
 public class ExceptionController {
-
-    /**
-     * 捕获Shiro异常
-     * @param e
-     * @return
-     */
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ExceptionHandler(ShiroException.class)
-    public Response handle401(ShiroException e) {
-        return new Response<>(ResponseCode.UNAUTHORIZED, e.getMessage());
-    }
 
     /**
      * 捕获UnauthorizedException
@@ -36,8 +28,8 @@ public class ExceptionController {
      * @return
      */
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ExceptionHandler(UnauthorizedException.class)
-    public Response handle401(UnauthorizedException e) {
+    @ExceptionHandler({UnauthorizedException.class, TokenExpiredException.class, ShiroException.class})
+    public Response handle401(Exception e) {
         return new Response<>(ResponseCode.UNAUTHORIZED, e.getMessage());
     }
 

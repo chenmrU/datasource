@@ -9,6 +9,7 @@ import com.cmr.datasource.service.UserService;
 import com.cmr.datasource.shiro.JWTUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
@@ -29,10 +30,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @ApiOperation("根据用户id查询用户信息")
+    @ApiOperation("查询用户信息")
     @GetMapping("getUser")
-    @RequiresPermissions("agent:save")
+    @RequiresPermissions("user:query")
     public User user(@RequestParam("userId") @NotNull Long userId) {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
         return userService.getUserById(userId);
     }
 
@@ -41,7 +43,7 @@ public class UserController {
     public Response login(@RequestBody LoginReq req) {
         User user = userService.getUserByUsername(req.getUsername());
         if (!ObjectUtils.isEmpty(user) && user.getUserPassword().equals(req.getPassword())) {
-            return new Response<String>(ResponseCode.LOGIN_SUCCESS, JWTUtil.sign(req.getUsername(), req.getPassword()));
+            return new Response<>(ResponseCode.LOGIN_SUCCESS, JWTUtil.sign(req.getUsername(), req.getPassword()));
         }
         throw new UnauthorizedException();
     }
