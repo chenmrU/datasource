@@ -18,6 +18,10 @@ public enum ResponseCode {
 
     SERVICE_ERROR(400, "服务异常"),
 
+    USER_NAME_EXIST(101, "用户名重复"),
+
+    REGISTER_FAIL(102, "注册用户失败")
+
     ;
 
     private int code;

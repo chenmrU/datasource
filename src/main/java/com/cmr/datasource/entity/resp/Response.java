@@ -30,4 +30,13 @@ public class Response<T> implements Serializable {
         this.msg = msg;
         this.data = data;
     }
+
+    public static Response buildSuccessResponse(Object data) {
+        return new Response(ResponseCode.SUCCESS, data);
+    }
+
+    public Response(ResponseCode responseCode) {
+        this.code = responseCode.getCode();
+        this.msg = responseCode.getMessage();
+    }
 }

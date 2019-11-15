@@ -2,6 +2,7 @@ package com.cmr.datasource.controller;
 
 import com.cmr.datasource.constants.ResponseCode;
 import com.cmr.datasource.entity.req.LoginReq;
+import com.cmr.datasource.entity.req.RegisterReq;
 import com.cmr.datasource.entity.resp.Response;
 import com.cmr.datasource.entity.User;
 import com.cmr.datasource.exception.UnauthorizedException;
@@ -15,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.Valid;
 
 /**
  * @author chenmengrui
@@ -31,16 +32,22 @@ public class UserController {
     private UserService userService;
 
     @ApiOperation("查询用户信息")
-    @GetMapping("getUser")
+    @GetMapping("userInfo")
     @RequiresPermissions("user:query")
-    public User user(@RequestParam("userId") @NotNull Long userId) {
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
-        return userService.getUserById(userId);
+    public User user() {
+        return (User) SecurityUtils.getSubject().getPrincipal();
+    }
+
+    @ApiOperation("注册")
+    @PostMapping("register")
+    public Response register(@RequestBody @Valid RegisterReq req) {
+        userService.register(req);
+        return Response.buildSuccessResponse(true);
     }
 
     @ApiOperation("登录")
-    @PostMapping("/login")
-    public Response login(@RequestBody LoginReq req) {
+    @PostMapping("login")
+    public Response<String> login(@RequestBody LoginReq req) {
         User user = userService.getUserByUsername(req.getUsername());
         if (!ObjectUtils.isEmpty(user) && user.getUserPassword().equals(req.getPassword())) {
             return new Response<>(ResponseCode.LOGIN_SUCCESS, JWTUtil.sign(req.getUsername(), req.getPassword()));

@@ -45,7 +45,6 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
                 executeLogin(request, response);
             } catch (Exception e) {
                 log.error("[JwtFilter.isAccessAllowed 47Line]" + e.getMessage());
-                //this.handle401(request,response,e.getMessage());
             }
         }
         return true;
@@ -70,23 +69,6 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
             return false;
         }
         return super.preHandle(request, response);
-    }
-
-    /**
-     * 处理非法请求
-     * @param request
-     * @param response
-     */
-    private void handle401(ServletRequest request, ServletResponse response, String message) {
-        Response result = new Response(ResponseCode.UNAUTHORIZED, message);
-        String json = JSON.toJSONString(result);
-        try{
-            response.setContentType("text/json;charset=UTF-8");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(json);
-        } catch (IOException e) {
-            log.error(e.getMessage());
-        }
     }
 
 }

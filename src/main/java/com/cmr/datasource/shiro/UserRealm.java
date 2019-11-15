@@ -3,6 +3,7 @@ package com.cmr.datasource.shiro;
 import com.cmr.datasource.entity.User;
 import com.cmr.datasource.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -43,7 +44,7 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        User user = (User) principalCollection;
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         if (!StringUtils.isEmpty(user.getUserRole())) {
             simpleAuthorizationInfo.addRole(user.getUserRole());

@@ -3,6 +3,7 @@ package com.cmr.datasource.controller;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.cmr.datasource.constants.ResponseCode;
 import com.cmr.datasource.entity.resp.Response;
+import com.cmr.datasource.exception.BizException;
 import com.cmr.datasource.exception.UnauthorizedException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.ShiroException;
@@ -31,6 +32,17 @@ public class ExceptionController {
     @ExceptionHandler({UnauthorizedException.class, TokenExpiredException.class, ShiroException.class})
     public Response handle401(Exception e) {
         return new Response<>(ResponseCode.UNAUTHORIZED, e.getMessage());
+    }
+
+    /**
+     * 捕获业务异常
+     * @param e
+     * @return
+     */
+    @ResponseStatus(HttpStatus.OK)
+    @ExceptionHandler(BizException.class)
+    public Response handleBizException(BizException e) {
+        return new Response(e.getResponseCode());
     }
 
     /**
