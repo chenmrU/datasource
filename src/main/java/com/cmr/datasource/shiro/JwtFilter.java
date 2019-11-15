@@ -1,5 +1,8 @@
 package com.cmr.datasource.shiro;
 
+import com.alibaba.fastjson.JSON;
+import com.cmr.datasource.constants.ResponseCode;
+import com.cmr.datasource.entity.resp.Response;
 import io.swagger.models.HttpMethod;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
@@ -38,7 +41,12 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         if (isLoginAttempt(request, response)) {
-            executeLogin(request, response);
+            try{
+                executeLogin(request, response);
+            } catch (Exception e) {
+                log.error("[JwtFilter.isAccessAllowed 47Line]" + e.getMessage());
+                //this.handle401(request,response,e.getMessage());
+            }
         }
         return true;
     }
@@ -69,13 +77,16 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
      * @param request
      * @param response
      */
-    /*private void response401(ServletRequest request, ServletResponse response, String message) {
+    private void handle401(ServletRequest request, ServletResponse response, String message) {
+        Response result = new Response(ResponseCode.UNAUTHORIZED, message);
+        String json = JSON.toJSONString(result);
         try{
-            HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-            httpServletResponse.sendRedirect("/401");
+            response.setContentType("text/json;charset=UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(json);
         } catch (IOException e) {
             log.error(e.getMessage());
         }
-    }*/
+    }
 
 }
