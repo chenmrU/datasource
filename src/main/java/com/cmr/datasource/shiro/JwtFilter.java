@@ -1,8 +1,5 @@
 package com.cmr.datasource.shiro;
 
-import com.alibaba.fastjson.JSON;
-import com.cmr.datasource.constants.ResponseCode;
-import com.cmr.datasource.entity.resp.Response;
 import io.swagger.models.HttpMethod;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
@@ -12,11 +9,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * @author chenmengrui
- * @Description: TODO
  * @date 2019/11/12 14:51
  */
 @Slf4j
@@ -64,6 +59,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         httpServletResponse.setHeader("Access-control-Allow-Origin", httpServletRequest.getHeader("Origin"));
         httpServletResponse.setHeader("Access-control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE");
         httpServletResponse.setHeader("Access-control-Allow-Headers", httpServletRequest.getHeader("Access-control-Request-Headers"));
+        // 跨域时会首先发送一个 option请求，这里我们给 option请求直接返回正常状态
         if (httpServletRequest.getMethod().equals(HttpMethod.OPTIONS.name())) {
             httpServletResponse.setStatus(HttpStatus.OK.value());
             return false;

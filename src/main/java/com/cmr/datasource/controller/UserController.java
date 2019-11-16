@@ -5,6 +5,7 @@ import com.cmr.datasource.entity.req.LoginReq;
 import com.cmr.datasource.entity.req.RegisterReq;
 import com.cmr.datasource.entity.resp.Response;
 import com.cmr.datasource.entity.User;
+import com.cmr.datasource.exception.BizException;
 import com.cmr.datasource.exception.UnauthorizedException;
 import com.cmr.datasource.service.UserService;
 import com.cmr.datasource.shiro.JWTUtil;
@@ -14,6 +15,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -40,7 +42,11 @@ public class UserController {
 
     @ApiOperation("注册")
     @PostMapping("register")
-    public Response register(@RequestBody @Valid RegisterReq req) {
+    public Response register(@RequestBody @Valid RegisterReq req, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            StringBuilder errors = new StringBuilder();
+            bindingResult.getAllErrors().forEach(objectError -> errors.append(objectError.getDefaultMessage()).append(","));
+        }
         userService.register(req);
         return Response.buildSuccessResponse(true);
     }

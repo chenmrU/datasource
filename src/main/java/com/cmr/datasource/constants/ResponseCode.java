@@ -14,7 +14,7 @@ public enum ResponseCode {
 
     LOGIN_SUCCESS(200, "登录成功"),
 
-    UNAUTHORIZED(401, "认证不通过"),
+    UNAUTHORIZED(401, "权限不足"),
 
     SERVICE_ERROR(400, "服务异常"),
 

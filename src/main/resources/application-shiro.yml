@@ -1,0 +1,2 @@
+shiro:
+  anonUrl: /401,/

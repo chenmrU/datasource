@@ -6,6 +6,8 @@ spring:
       - shiro
   main:
     allow-bean-definition-overriding: true
+  aop:
+    proxy-target-class: true
 
 
 mybatis:
