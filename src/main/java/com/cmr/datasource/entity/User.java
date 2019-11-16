@@ -19,6 +19,8 @@ public class User implements Serializable {
 
     private String userPermission;
 
+    private String userSalt;
+
     private static final long serialVersionUID = 1L;
 
     public Long getUserId() {
@@ -83,5 +85,13 @@ public class User implements Serializable {
 
     public void setUserPermission(String userPermission) {
         this.userPermission = userPermission == null ? null : userPermission.trim();
+    }
+
+    public String getUserSalt() {
+        return userSalt;
+    }
+
+    public void setUserSalt(String userSalt) {
+        this.userSalt = userSalt == null ? null : userSalt.trim();
     }
 }

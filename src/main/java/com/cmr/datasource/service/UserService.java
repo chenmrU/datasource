@@ -7,7 +7,9 @@ import com.cmr.datasource.entity.User;
 import com.cmr.datasource.entity.UserExample;
 import com.cmr.datasource.entity.req.RegisterReq;
 import com.cmr.datasource.exception.BizException;
+import com.cmr.datasource.utils.MD5Util;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -58,11 +60,15 @@ public class UserService {
             BizException.throwout(ResponseCode.USER_NAME_EXIST);
         }
 
+        String salt = RandomStringUtils.randomAlphanumeric(20);
+        String password = MD5Util.encrypt(req.getPassword(), salt);
+
         long count = userMapper.countByExample(new UserExample());
         User user = new User();
         user.setUserId(count + 1);
         user.setUserName(req.getUsername());
-        user.setUserPassword(req.getPassword());
+        user.setUserPassword(password);
+        user.setUserSalt(salt);
         int result = userMapper.insert(user);
         if (result != 1) {
             log.info("[UserService.register] fail, user is {}", JSON.toJSONString(user));

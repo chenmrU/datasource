@@ -643,6 +643,76 @@ public class UserExample {
             addCriterion("user_permission not between", value1, value2, "userPermission");
             return (Criteria) this;
         }
+
+        public Criteria andUserSaltIsNull() {
+            addCriterion("user_salt is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserSaltIsNotNull() {
+            addCriterion("user_salt is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserSaltEqualTo(String value) {
+            addCriterion("user_salt =", value, "userSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserSaltNotEqualTo(String value) {
+            addCriterion("user_salt <>", value, "userSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserSaltGreaterThan(String value) {
+            addCriterion("user_salt >", value, "userSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserSaltGreaterThanOrEqualTo(String value) {
+            addCriterion("user_salt >=", value, "userSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserSaltLessThan(String value) {
+            addCriterion("user_salt <", value, "userSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserSaltLessThanOrEqualTo(String value) {
+            addCriterion("user_salt <=", value, "userSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserSaltLike(String value) {
+            addCriterion("user_salt like", value, "userSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserSaltNotLike(String value) {
+            addCriterion("user_salt not like", value, "userSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserSaltIn(List<String> values) {
+            addCriterion("user_salt in", values, "userSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserSaltNotIn(List<String> values) {
+            addCriterion("user_salt not in", values, "userSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserSaltBetween(String value1, String value2) {
+            addCriterion("user_salt between", value1, value2, "userSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserSaltNotBetween(String value1, String value2) {
+            addCriterion("user_salt not between", value1, value2, "userSalt");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

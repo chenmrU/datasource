@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Path;
@@ -37,7 +36,8 @@ public class GlobalExceptionHandler {
      */
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(UnauthorizedException.class)
-    public Response handle401(org.apache.shiro.authz.UnauthorizedException e) {
+    public Response handleUnauthorizedException(UnauthorizedException e) {
+        log.error(e.getMessage());
         return new Response<>(ResponseCode.UNAUTHORIZED, e.getMessage());
     }
 
@@ -49,6 +49,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(BizException.class)
     public Response handleBizException(BizException e) {
+        log.error(e.getMessage());
         return new Response(e.getResponseCode());
     }
 
@@ -65,6 +66,7 @@ public class GlobalExceptionHandler {
             errorMsg.append(fieldError.getField()).append(fieldError.getDefaultMessage()).append(',');
         }
         errorMsg = new StringBuilder(errorMsg.substring(0, errorMsg.length() - 1));
+        log.error(errorMsg.toString());
         return new Response<>(500, "参数错误", errorMsg.toString());
     }
 
@@ -78,27 +80,20 @@ public class GlobalExceptionHandler {
             errorMsg.append(pathArr[1]).append(constraintViolation.getMessage()).append(',');
         }
         errorMsg = new StringBuilder(errorMsg.substring(0, errorMsg.length() - 1));
+        log.error(errorMsg.toString());
         return new Response<>(500, "参数错误", errorMsg.toString());
     }
 
     /**
      * 捕获其他所有异常
-     * @param request
-     * @param ex
+     * @param e
      * @return
      */
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Response globalException(HttpServletRequest request, Throwable ex) {
-        return new Response<>(getStatus(request).value(), ex.getMessage(), null);
-    }
-
-    private HttpStatus getStatus(HttpServletRequest request) {
-        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
-        if (statusCode == null) {
-            return HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-        return HttpStatus.valueOf(statusCode);
+    public Response globalException(Exception e) {
+        log.error(e.getMessage());
+        return new Response<>(500, "系统异常", e.getMessage());
     }
 
 }

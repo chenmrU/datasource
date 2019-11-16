@@ -10,6 +10,7 @@
     <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
     <result column="user_role" jdbcType="VARCHAR" property="userRole" />
     <result column="user_permission" jdbcType="VARCHAR" property="userPermission" />
+    <result column="user_salt" jdbcType="VARCHAR" property="userSalt" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,7 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    user_id, user_name, user_sex, user_phone, user_email, user_password, user_role, user_permission
+    user_id, user_name, user_sex, user_phone, user_email, user_password, user_role, user_permission, 
+    user_salt
   </sql>
   <select id="selectByExample" parameterType="com.cmr.datasource.entity.UserExample" resultMap="BaseResultMap">
     select
@@ -105,10 +107,12 @@
   <insert id="insert" parameterType="com.cmr.datasource.entity.User">
     insert into user (user_id, user_name, user_sex, 
       user_phone, user_email, user_password, 
-      user_role, user_permission)
+      user_role, user_permission, user_salt
+      )
     values (#{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{userSex,jdbcType=BIGINT}, 
       #{userPhone,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
-      #{userRole,jdbcType=VARCHAR}, #{userPermission,jdbcType=VARCHAR})
+      #{userRole,jdbcType=VARCHAR}, #{userPermission,jdbcType=VARCHAR}, #{userSalt,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.cmr.datasource.entity.User">
     insert into user
@@ -137,6 +141,9 @@
       <if test="userPermission != null">
         user_permission,
       </if>
+      <if test="userSalt != null">
+        user_salt,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -162,6 +169,9 @@
       </if>
       <if test="userPermission != null">
         #{userPermission,jdbcType=VARCHAR},
+      </if>
+      <if test="userSalt != null">
+        #{userSalt,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -198,6 +208,9 @@
       <if test="record.userPermission != null">
         user_permission = #{record.userPermission,jdbcType=VARCHAR},
       </if>
+      <if test="record.userSalt != null">
+        user_salt = #{record.userSalt,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -212,7 +225,8 @@
       user_email = #{record.userEmail,jdbcType=VARCHAR},
       user_password = #{record.userPassword,jdbcType=VARCHAR},
       user_role = #{record.userRole,jdbcType=VARCHAR},
-      user_permission = #{record.userPermission,jdbcType=VARCHAR}
+      user_permission = #{record.userPermission,jdbcType=VARCHAR},
+      user_salt = #{record.userSalt,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -241,6 +255,9 @@
       <if test="userPermission != null">
         user_permission = #{userPermission,jdbcType=VARCHAR},
       </if>
+      <if test="userSalt != null">
+        user_salt = #{userSalt,jdbcType=VARCHAR},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=BIGINT}
   </update>
@@ -252,7 +269,8 @@
       user_email = #{userEmail,jdbcType=VARCHAR},
       user_password = #{userPassword,jdbcType=VARCHAR},
       user_role = #{userRole,jdbcType=VARCHAR},
-      user_permission = #{userPermission,jdbcType=VARCHAR}
+      user_permission = #{userPermission,jdbcType=VARCHAR},
+      user_salt = #{userSalt,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=BIGINT}
   </update>
 </mapper>
