@@ -4,6 +4,7 @@ spring:
       - datasource
       - actuator
       - shiro
+      - redis
   main:
     allow-bean-definition-overriding: true
   aop:

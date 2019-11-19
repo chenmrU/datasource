@@ -1,0 +1,12 @@
+redis:
+  cluster:
+    nodes: 47.104.186.7:6379
+    password: password
+    maxIdle: 5
+    minIdle: 0
+    maxTotal: 500
+    maxWait: 3000
+    testOnBorrow: true
+    connTimeout: 3000
+    soTimeout: 3000
+    maxAttempts: 3
