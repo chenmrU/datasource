@@ -1,10 +1,10 @@
 package com.cmr.datasource.redis;
 
-import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+/*import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisSlotBasedConnectionHandler;
-import redis.clients.jedis.exceptions.JedisNoReachableClusterNodeException;
+import redis.clients.jedis.exceptions.JedisNoReachableClusterNodeException;*/
 
 import java.util.Set;
 
@@ -13,9 +13,9 @@ import java.util.Set;
  * @Description: 获取对应的slot
  * @date 2019/11/18 16:23
  */
-public class RedisSlotCustomConnectionHandler extends JedisSlotBasedConnectionHandler {
+public class RedisSlotCustomConnectionHandler /*extends JedisSlotBasedConnectionHandler*/ {
 
-
+/*
     public RedisSlotCustomConnectionHandler(Set<HostAndPort> nodes,
                                             GenericObjectPoolConfig poolConfig,
                                             int connectionTimeout,
@@ -35,6 +35,6 @@ public class RedisSlotCustomConnectionHandler extends JedisSlotBasedConnectionHa
             return jedisPool;
         }
         throw new JedisNoReachableClusterNodeException("No reachable node in cluster for slot " + slot);
-    }
+    }*/
 
 }

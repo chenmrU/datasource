@@ -1,6 +1,6 @@
 package com.cmr.datasource.redis;
 
-import org.springframework.beans.factory.annotation.Autowired;
+/*import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +10,7 @@ import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
-import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.JedisPoolConfig;*/
 
 import java.util.HashSet;
 import java.util.List;
@@ -21,21 +21,21 @@ import java.util.Set;
  * @Description: redis集群配置
  * @date 2019/11/18 16:01
  */
-@Configuration
-@ConditionalOnClass(JedisCluster.class)
+//@Configuration
+//@ConditionalOnClass(JedisCluster.class)
 public class RedisClusterConfig {
 
-    @Autowired
+    /*//@Autowired
     private RedisClusterProperties redisClusterProperties;
 
-    @Bean
+    //@Bean
     public RedisConnectionFactory redisConnectionFactory() {
         RedisClusterConfiguration redisClusterConfiguration = new RedisClusterConfiguration(redisClusterProperties.getNodes());
         redisClusterConfiguration.setPassword(RedisPassword.of(redisClusterProperties.getPassword()));
         return new JedisConnectionFactory(redisClusterConfiguration);
     }
 
-    @Bean
+    //@Bean
     public RedisClusterPipeline jedisCluster() {
         List<String> nodes = redisClusterProperties.getNodes();
         Set<HostAndPort> nodeSet = new HashSet<>();
@@ -58,7 +58,7 @@ public class RedisClusterConfig {
 
         return new RedisClusterPipeline(nodeSet, redisClusterProperties.getConnTimeout(), redisClusterProperties.getSoTimeout(),
                 redisClusterProperties.getMaxAttempts(), redisClusterProperties.getPassword(), jedisPoolConfig);
-    }
+    }*/
 
 
 }
